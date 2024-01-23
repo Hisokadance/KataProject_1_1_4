@@ -7,9 +7,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@AllArgsConstructor
+@Entity
 @NoArgsConstructor
 @Setter
 @Getter
@@ -17,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public User(String name, String lastName, Byte age) {
