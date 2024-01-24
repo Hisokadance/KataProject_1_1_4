@@ -2,15 +2,15 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
+import jm.task.core.jdbc.util.Util;
+import org.hibernate.SessionFactory;
 
 public class Main {
 
-    //todo: use! jdk11 (POM)
-    //todo: README.md необходимо заполнить, проект должен быть документирован (в нашем случае - это просто описание задачи). Размещается в root-е проекта
-
-
     public static void main(String[] args) {
-        UserDao userDao = new UserDaoHibernateImpl();
+        SessionFactory sessionFactory = Util.getSessionFactory();
+        UserDao userDao = new UserDaoHibernateImpl(sessionFactory);
+
         userDao.createUsersTable();
 
         userDao.saveUser("Name1", "LastName1", (byte) 20);

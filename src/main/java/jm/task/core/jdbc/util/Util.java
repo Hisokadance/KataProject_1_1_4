@@ -1,6 +1,5 @@
 package jm.task.core.jdbc.util;
 
-
 import jm.task.core.jdbc.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -14,33 +13,28 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
-
-    ///todo: выносим константы из тела метода, например:
     private static final String DB_URL = "jdbc:mysql://localhost:3306/test";
     private static final String USER = "root";
     private static final String PASS = "123321";
-    //todo ....
 
     private static SessionFactory sessionFactory;
 
-
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection(DB_URL, "root", "my179sql");//todo: например, ..подстановка константы
+            return DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException e) {
-            throw new RuntimeException("....... " + e.getMessage());//todo: codeStyle (роняем приложение - дальнейшая работа не целесообразна)
+            throw new RuntimeException(e);
         }
     }
 
-
-    public static SessionFactory getSessionFactory() {//todo: codeStyle (пробелы строк..)
+    public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
 
-                settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, DB_URL);//todo: ..подстановка константы
+                settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
+                settings.put(Environment.URL, DB_URL);
                 settings.put(Environment.USER, USER);
                 settings.put(Environment.PASS, PASS);
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
@@ -54,11 +48,9 @@ public class Util {
 
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
-                //todo: роняем..
-                e.printStackTrace();
+                throw new RuntimeException("Failed to initialize Hibernate SessionFactory" + e.getMessage());
             }
         }
         return sessionFactory;
     }
 }
-
