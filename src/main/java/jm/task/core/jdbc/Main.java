@@ -4,6 +4,11 @@ import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 
 public class Main {
+
+    //todo: use! jdk11 (POM)
+    //todo: README.md необходимо заполнить, проект должен быть документирован (в нашем случае - это просто описание задачи). Размещается в root-е проекта
+
+
     public static void main(String[] args) {
         UserDao userDao = new UserDaoHibernateImpl();
         userDao.createUsersTable();

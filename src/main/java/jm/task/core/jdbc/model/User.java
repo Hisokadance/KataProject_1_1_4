@@ -21,6 +21,9 @@ import javax.persistence.Table;
 @ToString
 @Table(name = "users")
 public class User {
+
+    //todo: lombok нам не понадобится, пока можно делать set-еры, get-ему вручную. Стоит сделать переопределение equals/hashcode, ввести пустой constructor (вспомнить - зачем)
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

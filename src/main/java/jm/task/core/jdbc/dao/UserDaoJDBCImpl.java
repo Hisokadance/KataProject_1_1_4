@@ -15,24 +15,27 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    Connection connection;
-    Util util;
+    //todo: выносим константы... и логически правильно именуем во всех методах, например:
+    private static final String createUsersQuery = "CREATE TABLE IF NOT EXISTS `users` (" +
+            " id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
+            " name VARCHAR(45), " +
+            " lastName VARCHAR(45), " +
+            " age TINYINT); ";
 
-    public UserDaoJDBCImpl() {
-        util = new Util();
-        connection = util.getConnection();
+    Connection connection;
+//    Util util;
+
+    public UserDaoJDBCImpl() {//todo: codeStyle ..именно это имелось в виду в комментариях к задаче в matter
+//        util = new Util();
+        connection = new Util().getConnection();
     }
 
     public void createUsersTable() {
-        String create = "CREATE TABLE IF NOT EXISTS `users` (" +
-                        " id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
-                        " name VARCHAR(45), " +
-                        " lastName VARCHAR(45), " +
-                        " age TINYINT); ";
         try (Statement statement = connection.createStatement()) {
-            statement.execute(create);
-            System.out.println("DBTable users has been created");
+            statement.execute(createUsersQuery);
+            System.out.println("DBTable users has been created");//todo: логи (их имитация через sout - должны быть в слое service - для обоих реализаций)
         } catch (SQLException e) {
+            //todo: роняем по необходимости (описано в Util - как)
             e.printStackTrace();
         }
     }

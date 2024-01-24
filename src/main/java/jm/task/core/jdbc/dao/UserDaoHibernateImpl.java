@@ -3,13 +3,19 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    public UserDaoHibernateImpl() {
+
+    //todo: вынос констант
+
+    //todo: SessionFactory sessionFactory - вводим для всего класса и инициализируем через constructor
+
+    public UserDaoHibernateImpl() {//todo: пустой constructor - зачем?
 
     }
 
@@ -57,7 +63,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         try (Session session = Util.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();//todo: необходимо вспомнить (разобраться) - для каких методов используется transaction
             Query<User> query = session.createQuery("FROM User", User.class);
             List<User> users = query.list();
             transaction.commit();

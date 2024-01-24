@@ -12,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao = new UserDaoHibernateImpl();
+    //todo: lombok нам не понадобится
+
+    private UserDao userDao = new UserDaoHibernateImpl();//todo: инициализация - через constructor
 
     public void createUsersTable() {
         userDao.createUsersTable();
